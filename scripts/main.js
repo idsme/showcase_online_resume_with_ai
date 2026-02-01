@@ -41,6 +41,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize mouse spotlight effect
     initSpotlightEffect();
+    
+    // Initialize circle progress indicators
+    initCircleProgress();
 });
 
 // ========================================
@@ -187,5 +190,43 @@ function initSpotlightEffect() {
             
             spotlight.style.background = `radial-gradient(600px at ${mouseX}px ${mouseY}px, var(--spotlight-color), transparent 80%)`;
         }
+    });
+}
+
+// ========================================
+// Circle Progress Animation
+// ========================================
+
+function initCircleProgress() {
+    const circles = document.querySelectorAll('.circle-fill');
+    
+    // Animate circles with a stagger effect
+    circles.forEach((circle, index) => {
+        const percentage = circle.getAttribute('data-percentage');
+        const circumference = 2 * Math.PI * 45; // radius is 45
+        const offset = circumference - (percentage / 100 * circumference);
+        
+        // Delay each circle animation slightly for a stagger effect
+        setTimeout(() => {
+            circle.style.strokeDashoffset = offset;
+        }, index * 150); // 150ms delay between each circle
+    });
+    
+    // Add hover effect to enhance interactivity
+    const attributeItems = document.querySelectorAll('.attribute-item');
+    attributeItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            const circle = this.querySelector('.circle-fill');
+            const currentOffset = parseFloat(circle.style.strokeDashoffset);
+            circle.style.strokeDashoffset = currentOffset - 5; // Slightly increase on hover
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            const circle = this.querySelector('.circle-fill');
+            const percentage = circle.getAttribute('data-percentage');
+            const circumference = 2 * Math.PI * 45;
+            const offset = circumference - (percentage / 100 * circumference);
+            circle.style.strokeDashoffset = offset; // Return to original
+        });
     });
 }
