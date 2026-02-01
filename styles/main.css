@@ -749,18 +749,18 @@ body {
 
 .circle-fill {
     fill: none;
-    stroke: var(--accent-primary);
+    stroke: var(--accent-secondary);
     stroke-width: 6;
     stroke-linecap: round;
     stroke-dasharray: 283;
     stroke-dashoffset: 283;
-    transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-    filter: drop-shadow(0 0 4px rgba(94, 234, 212, 0.3));
+    transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.3s ease;
+    filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.3));
 }
 
 .attribute-item:hover .circle-fill {
-    stroke: var(--accent-secondary);
-    filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.4));
+    stroke: var(--accent-primary);
+    filter: drop-shadow(0 0 6px rgba(94, 234, 212, 0.4));
 }
 
 .attribute-info {
@@ -773,8 +773,13 @@ body {
 .attribute-value {
     font-size: 1.1rem;
     font-weight: 700;
-    color: var(--accent-primary);
+    color: var(--accent-secondary);
     margin-bottom: 0.125rem;
+    transition: color 0.3s ease;
+}
+
+.attribute-item:hover .attribute-value {
+    color: var(--accent-primary);
 }
 
 .attribute-label {
