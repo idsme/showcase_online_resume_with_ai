@@ -13,6 +13,7 @@
     --accent-secondary: rgb(56, 189, 248);
     --border-color: rgb(51, 65, 85);
     --highlight-bg: rgba(94, 234, 212, 0.1);
+    --spotlight-color: rgba(29, 78, 216, 0.15);
     
     /* Typography */
     --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
@@ -27,8 +28,9 @@
     --spacing-2xl: 4rem;
     
     /* Transitions */
-    --transition-fast: 0.2s ease;
+    --transition-fast: 0.15s ease;
     --transition-medium: 0.3s ease;
+    --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -47,6 +49,20 @@ body {
     color: var(--text-secondary);
     line-height: 1.6;
     overflow-x: hidden;
+    position: relative;
+}
+
+/* ========================================
+   Mouse Spotlight Effect
+   ======================================== */
+
+.spotlight {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    transition: background var(--transition-smooth);
+    background: radial-gradient(600px at 0px 0px, var(--spotlight-color), transparent 80%);
 }
 
 /* ========================================
@@ -57,13 +73,14 @@ body {
     position: fixed;
     left: 0;
     top: 0;
-    width: 300px;
+    width: 320px;
     height: 100vh;
     background-color: var(--bg-primary);
     border-right: 1px solid var(--border-color);
-    padding: var(--spacing-xl) var(--spacing-lg);
+    padding: var(--spacing-2xl) var(--spacing-xl);
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     z-index: 100;
     overflow-y: auto;
 }
@@ -109,38 +126,41 @@ body {
 }
 
 .nav-link {
-    color: var(--text-secondary);
+    color: var(--text-primary);
     text-decoration: none;
     font-size: 0.875rem;
     font-weight: 600;
     letter-spacing: 0.1em;
     padding: var(--spacing-xs) 0;
-    transition: all var(--transition-fast);
+    padding-left: 28px;
+    transition: color var(--transition-fast);
     position: relative;
-    display: inline-block;
+    display: block;
+    opacity: 0.7;
 }
 
 .nav-link::before {
     content: '';
     position: absolute;
-    left: -20px;
+    left: 0;
     top: 50%;
     transform: translateY(-50%);
-    width: 12px;
-    height: 2px;
+    width: 16px;
+    height: 1px;
     background-color: var(--text-muted);
-    transition: all var(--transition-fast);
+    transition: all var(--transition-smooth);
 }
 
 .nav-link:hover,
 .nav-link.active {
-    color: var(--accent-primary);
+    color: var(--text-primary);
+    opacity: 1;
 }
 
 .nav-link:hover::before,
 .nav-link.active::before {
-    width: 30px;
-    background-color: var(--accent-primary);
+    width: 24px;
+    background-color: var(--text-primary);
 }
 
 .social-links {
@@ -152,12 +172,14 @@ body {
 .social-links a {
     color: var(--text-secondary);
     font-size: 1.5rem;
-    transition: all var(--transition-fast);
+    transition: all var(--transition-smooth);
+    opacity: 0.7;
 }
 
 .social-links a:hover {
-    color: var(--accent-primary);
-    transform: translateY(-3px);
+    color: var(--text-primary);
+    opacity: 1;
+    transform: translateY(-2px);
 }
 
 .whatsapp-link:hover {
@@ -175,21 +197,22 @@ body {
     text-decoration: none;
     font-weight: 600;
     font-size: 0.95rem;
-    transition: all var(--transition-medium);
+    transition: all var(--transition-smooth);
     text-align: center;
     justify-content: center;
 }
 
 .cta-button:hover {
     background-color: var(--accent-secondary);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(94, 234, 212, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(94, 234, 212, 0.25);
 }
 
 .main-content {
-    margin-left: 300px;
+    margin-left: 320px;
     padding: var(--spacing-2xl) var(--spacing-xl);
-    max-width: 1200px;
+    max-width: 1100px;
+    padding-left: max(var(--spacing-xl), calc((100vw - 320px - 1100px) / 2));
 }
 
 /* ========================================
@@ -325,12 +348,14 @@ body {
     gap: var(--spacing-lg);
     padding: var(--spacing-lg);
     border-radius: 8px;
-    transition: all var(--transition-medium);
+    transition: all var(--transition-smooth);
     position: relative;
+    cursor: pointer;
 }
 
 .experience-item:hover {
-    background-color: var(--highlight-bg);
+    background-color: rgba(94, 234, 212, 0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .exp-date {
@@ -367,7 +392,7 @@ body {
 }
 
 .exp-title:hover .arrow {
-    transform: translateX(5px);
+    transform: translateX(3px);
 }
 
 .exp-company {
@@ -444,7 +469,7 @@ body {
 }
 
 .view-more-link:hover .arrow {
-    transform: translateX(5px);
+    transform: translateX(3px);
 }
 
 /* ========================================
@@ -463,16 +488,17 @@ body {
     gap: var(--spacing-lg);
     padding: var(--spacing-lg);
     border-radius: 8px;
-    transition: all var(--transition-medium);
-    background-color: var(--bg-secondary);
+    transition: all var(--transition-smooth);
+    background-color: rgba(30, 41, 59, 0.5);
     border: 1px solid var(--border-color);
+    cursor: pointer;
 }
 
 .project-item:hover {
-    background-color: var(--highlight-bg);
-    border-color: var(--accent-primary);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    background-color: rgba(94, 234, 212, 0.05);
+    border-color: rgba(94, 234, 212, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .project-image {
@@ -553,17 +579,17 @@ body {
 }
 
 .skill-item {
-    background-color: var(--bg-secondary);
+    background-color: rgba(30, 41, 59, 0.5);
     padding: var(--spacing-md);
     border-radius: 8px;
     border: 1px solid var(--border-color);
-    transition: all var(--transition-medium);
+    transition: all var(--transition-smooth);
 }
 
 .skill-item:hover {
-    border-color: var(--accent-primary);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-color: rgba(94, 234, 212, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .skill-header {
@@ -611,19 +637,19 @@ body {
 }
 
 .cert-item {
-    background-color: var(--bg-secondary);
+    background-color: rgba(30, 41, 59, 0.5);
     padding: var(--spacing-md);
     border-radius: 8px;
     border: 1px solid var(--border-color);
     display: flex;
     gap: var(--spacing-md);
-    transition: all var(--transition-medium);
+    transition: all var(--transition-smooth);
 }
 
 .cert-item:hover {
-    border-color: var(--accent-primary);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-color: rgba(94, 234, 212, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .cert-year {
@@ -681,11 +707,12 @@ body {
 
 @media (max-width: 1024px) {
     .sidebar {
-        width: 250px;
+        width: 280px;
     }
     
     .main-content {
-        margin-left: 250px;
+        margin-left: 280px;
+        padding-left: var(--spacing-xl);
     }
     
     .experience-item,

@@ -38,6 +38,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize skill bars animation
     initSkillBars();
+    
+    // Initialize mouse spotlight effect
+    initSpotlightEffect();
 });
 
 // ========================================
@@ -153,3 +156,36 @@ whatsappLinks.forEach(link => {
 document.querySelectorAll('a[target="_blank"]').forEach(link => {
     link.setAttribute('rel', 'noopener noreferrer');
 });
+
+// ========================================
+// Mouse Spotlight Effect
+// ========================================
+
+function initSpotlightEffect() {
+    // Create the spotlight element
+    const spotlight = document.createElement('div');
+    spotlight.className = 'spotlight';
+    document.body.insertBefore(spotlight, document.body.firstChild);
+    
+    // Track mouse movement
+    let mouseX = 0;
+    let mouseY = 0;
+    
+    document.addEventListener('mousemove', function(e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        // Update spotlight position
+        spotlight.style.background = `radial-gradient(600px at ${mouseX}px ${mouseY}px, var(--spotlight-color), transparent 80%)`;
+    });
+    
+    // Handle touch devices (optional - shows spotlight at touch point)
+    document.addEventListener('touchmove', function(e) {
+        if (e.touches.length > 0) {
+            mouseX = e.touches[0].clientX;
+            mouseY = e.touches[0].clientY;
+            
+            spotlight.style.background = `radial-gradient(600px at ${mouseX}px ${mouseY}px, var(--spotlight-color), transparent 80%)`;
+        }
+    });
+}
