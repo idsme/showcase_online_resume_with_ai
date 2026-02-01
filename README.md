@@ -13,7 +13,7 @@ A professional portfolio website showcasing the work, skills, and expertise of I
 
 ## 🎨 Design
 
-The design is inspired by [brittanychiang.com](https://brittanychiang.com/) featuring:
+The design features:
 - **Color Scheme**: 
   - Background: Navy/Slate (`rgb(15, 23, 42)`)
   - Text: Light slate (`rgb(226, 232, 240)`)
@@ -84,7 +84,6 @@ This is a static website and can be deployed to any static hosting service:
 
 ## 🙏 Acknowledgments
 
-- Design inspiration from [Brittany Chiang](https://brittanychiang.com/)
 - Built with assistance from Abacus.AI
 
 ---
